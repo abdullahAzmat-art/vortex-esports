@@ -1,68 +1,119 @@
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "tailwindcss";
+@font-face {
+  font-family: "MyGamingFont";
+  src: url("./public/NBC Tinker Black.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+
+.bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;  /* Behind everything */
+  background-color: black; /* Fallback color */
+
+/* filter: blur()); */
+
 }
 
-body {
+.bgnavbar{
+  /* From https://css.glass */
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.17);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(6.1px);
+-webkit-backdrop-filter: blur(6.1px);
+border: 1px solid rgba(255, 255, 255, 0.03);
+}
+.addthefont{
+  font-family:MyGamingFont;
+}
+/* Announcement.css - place next to the component and import it in the component */
+.announcement-section {
+  position: relative;
+  overflow: visible;
+}
+
+/* Wrapper hides overflow and sizes the marquee area */
+.main-heading {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-top: 2.5rem;
+  display: block;
+}
+
+/* The moving track: long content (duplicated) */
+.track {
+  display: inline-flex;
+  gap: 1.5rem;
+  align-items: center;
+  /* animate: name duration timing-function iteration-count */
+  animation: marquee 15s linear infinite;
+  will-change: transform;
+}
+
+/* Each message block */
+.conn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Big headline style — adjust sizes as needed */
+.conn h1 {
+
+  font-size: 8.5rem; /* big font */
+  line-height: 1;
+  font-weight: 700;
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  padding: 0 1.25rem;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 0.02em;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* small circular separator */
+.gola {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  flex-shrink: 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* hide scrollbar on webkit */
+.main-heading::-webkit-scrollbar {
+  display: none;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* Marquee animation: move track from 0 -> -50% (because we duplicated content) */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
   }
-  a:hover {
-    color: #747bff;
+  100% {
+    transform: translateX(-50%);
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+/* Responsive tuning */
+@media (max-width: 768px) {
+  .conn h1 {
+    font-size: 2rem;
+    padding: 0 0.75rem;
+  }
+  .gola {
+    width: 12px;
+    height: 12px;
+  }
+  .track {
+    animation-duration: 10s; /* faster on small screens */
   }
 }

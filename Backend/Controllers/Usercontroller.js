@@ -17,7 +17,7 @@ await user.save();
 
 
 const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-res.json({ token, user });
+res.json({ token, user  , success:true});
 } catch (err) {
 res.status(500).json({ message: err.message });
 }
@@ -38,10 +38,14 @@ if (!match) return res.status(400).json({ message: 'Invalid credentials' });
 
 
 const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-res.json({ token, user });
+res.json({ token, user , success:true });
 } catch (err) {
 res.status(500).json({ message: err.message });
 }
+
+
+
+
 
 }
 
@@ -67,4 +71,44 @@ res.json({ message: 'Password set' });
 } catch (err) {
 res.status(500).json({ message: err.message });
 }
+}
+
+
+ export const getaluser = async(req ,res)=>{
+    try {
+        
+        const users = await User.find();
+        res.status(200).json(users)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getuserbyid = async(req ,res)=>{
+    try {
+        const user = await User.findById(req.params.id);
+        res.status(200).json(user)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+export const deleteuser = async(req ,res)=>{
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.status(200).json({message:"User deleted successfully"})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const updateuser = async(req ,res)=>{
+    try {
+        const user = await User.findByIdAndUpdate(req.params.id , req.body , {new:true});   
+    
+        res.status(200).send({message:"User updated successfully", user})
+    }catch(error){
+          console.log(error)
+    }
 }

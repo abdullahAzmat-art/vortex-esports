@@ -25,7 +25,7 @@ const Signup = () => {
       const result = await response.json();
       console.log(result);
 
-      if (result.success === 200) {
+      if (result.success === true) {
         toast.success("Signup Successful 🎉", {
           position: "top-right",
           theme: "dark",

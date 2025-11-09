@@ -36,7 +36,7 @@ const TournamentAdd = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:7700/api/v1/createTournament", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/createTournament`, {
         method: "POST",
         body: formData,
       });

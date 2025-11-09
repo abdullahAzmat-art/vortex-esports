@@ -7,7 +7,7 @@ const Userbro = () => {
 
   const getthedata = async () => {
     try {
-      const data = await fetch("http://localhost:7700/api/v1/getuser");
+      const data = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/getuser`);
       const parseddata = await data.json();
       setUsers(parseddata);
     } catch (error) {
@@ -24,7 +24,7 @@ const Userbro = () => {
       const newRole = currentRole === "user" ? "admin" : "user";
 
       const response = await fetch(
-        `http://localhost:7700/api/v1/updateuser/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/updateuser/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -44,7 +44,7 @@ const Userbro = () => {
   const deleteit = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:7700/api/v1/deleteTournament/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/deleteTournament/${id}`,
         { method: "DELETE" }
       );
 

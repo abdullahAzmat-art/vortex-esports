@@ -10,7 +10,7 @@ const Announcement = () => {
 
   const gettheaccouncement = async () => {
     try {
-      const data = await fetch("http://localhost:7700/api/v1/getacc");
+      const data = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/getacc`);
       const parseddata = await data.json();
       console.log(parseddata , "jfj");
 

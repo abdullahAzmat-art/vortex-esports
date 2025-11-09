@@ -6,7 +6,7 @@ const Tournamentcard = () => {
 
   const getthedata = async () => {
     try {
-      const data = await fetch("http://localhost:7700/api/v1/getTournament");
+      const data = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/getTournament`);
       const parseddata = await data.json();
 
       const tournaments = Array.isArray(parseddata)
@@ -65,7 +65,7 @@ const Tournamentcard = () => {
                 }} data-aos="fade-up"
               >
                 <img
-                  src={`http://localhost:7700/uploads/${ele.picture}`}
+                  src={`${import.meta.env.myapikey}/uploads/${ele.picture}`}
                   alt="Tournament"
                   className="w-full h-48 sm:h-60 md:h-64 lg:h-72 "
                 />

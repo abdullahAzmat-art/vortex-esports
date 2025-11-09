@@ -7,7 +7,7 @@ const Announcementview = () => {
 
   const getthedata = async () => {
     try {
-      const data = await fetch("http://localhost:7700/api/v1/getacc");
+      const data = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/getacc`);
       const parseddata = await data.json();
       setUsers(parseddata);
     } catch (error) {
@@ -23,7 +23,7 @@ const Announcementview = () => {
   const deleteit = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:7700/api/v1/deleteacc/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/deleteacc/${id}`,
         { method: "DELETE" }
       );
 

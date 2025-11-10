@@ -67,7 +67,7 @@ const Tournamentcard = () => {
                 <img
                   src={`${ele.picture}`}
                   alt="Tournament"
-                  className="w-full h-48 sm:h-60 md:h-64 lg:h-72 "
+                  className="w-full h-48 sm:h-60 md:h-64 lg:h-72 object-cover "
                 />
 
                 <h3 className="mt-3 px-4 pt-3 mb-1 text-lg font-semibold text-white">

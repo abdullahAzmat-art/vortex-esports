@@ -1,11 +1,12 @@
 import express from "express";
-import { deletetournament, getalltournaments, gettournamentById, multerset, postthetournament, updatetournament } from "../Controllers/Tournamentcontroller.js";
+import { deletetournament, getalltournaments, gettournamentById, postthetournament, updatetournament } from "../Controllers/Tournamentcontroller.js";
+import { parser } from "../utility/cloudinary.js";
 
 
 const router = express.Router();
 
 // Create Tournament
-router.post("/createTournament", multerset.single('picture') , postthetournament);
+router.post("/createTournament", parser.single("picture") , postthetournament);
 
 // Get All Tournaments
 router.get("/getTournament", getalltournaments);

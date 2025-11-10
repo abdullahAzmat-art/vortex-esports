@@ -83,7 +83,7 @@ const ViewTournament = () => {
                 }}
               >
                 <img
-                  src={`${import.meta.env.myapikey}/uploads/${ele.picture}`}
+                  src={`${import.meta.env.VITE_API_URL}/uploads/${ele.picture}`}
                   alt="Tournament"
                   className="w-full h-48 sm:h-60 md:h-64 lg:h-72 object-cover"
                 />

@@ -3,36 +3,16 @@ import  Tournamentmodel  from "../models/Tournamentmodel.js";
 
 // ✅ CREATE Tournament
 
-const storagefun = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads'); // specify the destination directory
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + '-' + file.originalname); // specify the file name
-  }
-});
-const filefilterfun = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg')   {
-    cb(null, true); // accept file  
-  } else {
-    cb(new Error('Invalid file type, only JPEG and PNG is allowed!'), false); // reject file
-  }
-}
-export const multerset = multer({
-  storage: storagefun , 
-  fileFilter: filefilterfun
-})
+
 export const postthetournament = async (req, res) => {
   try {
-    const { title, game, description, tournamentdate, entryFee, prizePool, maxTeams, maxMember  , LinkstoLive } = req.body;
-  let picture = null;
-    if (req.file) {
-      picture = req.file.filename; // save only filename
-    }
+    // req.file.path is the Cloudinary URL
+    const picture = req.file?.path || null;
+
+    const { title, game, description, tournamentdate, entryFee, prizePool, maxTeams, maxMember, LinkstoLive } = req.body;
 
     // Validate required fields
-    const inputFields = ["title", "game", "description", "tournamentdate", "entryFee", "LinkstoLive" ,"prizePool", "maxTeams", "maxMember"];
+    const inputFields = ["title", "game", "description", "tournamentdate", "entryFee", "LinkstoLive", "prizePool", "maxTeams", "maxMember"];
     for (let field of inputFields) {
       if (!req.body[field]) {
         return res.status(400).json({ message: `${field} is required` });
@@ -47,8 +27,8 @@ export const postthetournament = async (req, res) => {
       entryFee,
       prizePool,
       maxTeams,
-      maxMember ,
-      picture ,
+      maxMember,
+      picture,
       LinkstoLive
     });
 
@@ -57,6 +37,7 @@ export const postthetournament = async (req, res) => {
       tournament
     });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: err.message });
   }
 };

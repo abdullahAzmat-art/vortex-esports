@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @font-face {
   font-family: "MyGamingFont";
-  src: url("./public/NBC Tinker Black.otf") format("truetype");
+  src: url("/NBC Tinker Black.otf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }

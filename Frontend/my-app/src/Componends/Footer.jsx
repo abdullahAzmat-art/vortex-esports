@@ -10,7 +10,7 @@ const Footer = () => {
           <img
             alt="VORTX"
             className="h-14 drop-shadow-[0_0_20px_rgb(168,85,247,0.7)] rounded-2xl"
-            src="./public/Gemini_Generated_Image_ywhnikywhnikywhn.png" // ✅ Replace with your logo path
+            src="/Gemini_Generated_Image_ywhnikywhnikywhn.png" // ✅ Replace with your logo path
           />
         </div>
 

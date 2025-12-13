@@ -184,7 +184,7 @@ const HeatRage = () => {
 
                 {/* Rage System */}
                 <div
-                    className="mt-16 backdrop-blur-xl bg-gradient-to-br from-red-500/10 to-pink-500/20 rounded-3xl p-8 md:p-12 border border-red-400/30 shadow-2xl"
+                    className="mt-16 backdrop-blur-xl bg-black/40 rounded-3xl p-8 md:p-12 border border-red-400/30 shadow-2xl"
                     data-aos="fade-up"
                 >
                     <h2 className="text-3xl font-bold text-white mb-6 addthefont flex items-center gap-3">
@@ -231,7 +231,7 @@ const HeatRage = () => {
 
                 {/* Strategy Tips */}
                 <div
-                    className="mt-12 backdrop-blur-xl bg-white/10 rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl"
+                    className="mt-12 backdrop-blur-xl bg-black/40 rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl"
                     data-aos="fade-up"
                 >
                     <h2 className="text-3xl font-bold text-white mb-6 addthefont">

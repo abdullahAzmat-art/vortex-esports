@@ -14,10 +14,13 @@ import Addanouncement from "./Componends/Addanouncement";
 import Announcementview from "./Componends/Announcementview";
 import LocomotiveScroll from 'locomotive-scroll';
 import Aboutus from "./Componends/Abdoutus";
+import FrameData from "./Componends/FrameData";
+import Sidestepping from "./Componends/Sidestepping";
+import HeatRage from "./Componends/HeatRage";
 
 function App() {
 
-  
+
   const videoRef = useRef(null);
 
   useEffect(() => {
@@ -47,15 +50,20 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/about" element={<Aboutus/>}/>
+            <Route path="/about" element={<Aboutus />} />
 
-            <Route element={<Checkadmin/>}>
-            <Route path="/tournamentadd" element={<Touranamentadd />} />
-            <Route path="/viewtournament" element={<ViewTournament />} />
-            <Route path="/users" element={<Userbro/>}/>
-            <Route path="/announcementadd" element={<Addanouncement/>}/>
-            <Route path="/viewannouncement" element={<Announcementview/>}/>
-            
+            {/* Training Routes */}
+            <Route path="/training/framedata" element={<FrameData />} />
+            <Route path="/training/sidestepping" element={<Sidestepping />} />
+            <Route path="/training/heatrage" element={<HeatRage />} />
+
+            <Route element={<Checkadmin />}>
+              <Route path="/tournamentadd" element={<Touranamentadd />} />
+              <Route path="/viewtournament" element={<ViewTournament />} />
+              <Route path="/users" element={<Userbro />} />
+              <Route path="/announcementadd" element={<Addanouncement />} />
+              <Route path="/viewannouncement" element={<Announcementview />} />
+
             </Route>
           </Routes>
         </Layouts>

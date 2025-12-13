@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+  const [trainingDropdown, setTrainingDropdown] = useState(false);
 
   // Simulating role - in your app this comes from localStorage
   const role = localStorage.getItem("role"); // Change to null to test non-admin view
@@ -40,7 +41,7 @@ const Navbar = () => {
         ${open ? "top-full mt-2 bg-black/90 backdrop-blur-xl rounded-3xl" : "top-[-500px] md:top-0"}
         `}
       >
-          <Link to="/" onClick={() => setOpen(false)} className="hover:text-indigo-400 transition">
+        <Link to="/" onClick={() => setOpen(false)} className="hover:text-indigo-400 transition">
           Home
         </Link>
         <a href="#about" onClick={() => setOpen(false)} className="hover:text-indigo-400 transition">
@@ -52,7 +53,52 @@ const Navbar = () => {
         <a href="#tournament" onClick={() => setOpen(false)} className="hover:text-indigo-400 transition">
           Tournaments
         </a>
-      
+
+        {/* TRAINING DROPDOWN */}
+        <div
+          className="relative"
+          onMouseEnter={() => setTrainingDropdown(true)}
+          onMouseLeave={() => setTrainingDropdown(false)}
+        >
+          <button
+            className="px-3 rounded hover:text-indigo-400 transition-all duration-300"
+          >
+            Training ▼
+          </button>
+
+          <ul
+            className={`absolute md:left-auto left-0 md:right-0 mt-2 w-52 bg-black/90 backdrop-blur-xl rounded-lg shadow-lg border border-gray-800 overflow-hidden z-50 transition-all duration-300 ease-out origin-top ${trainingDropdown
+              ? 'opacity-100 scale-100 translate-y-0 visible'
+              : 'opacity-0 scale-95 -translate-y-2 invisible'
+              }`}
+          >
+            <Link to="/training/framedata" onClick={() => { setTrainingDropdown(false); setOpen(false); }}>
+              <li className="px-4 py-3 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:pl-6">
+                <span className="flex items-center gap-2">
+                  <span className="text-indigo-400">📊</span>
+                  Frame Data
+                </span>
+              </li>
+            </Link>
+            <Link to="/training/sidestepping" onClick={() => { setTrainingDropdown(false); setOpen(false); }}>
+              <li className="px-4 py-3 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:pl-6">
+                <span className="flex items-center gap-2">
+                  <span className="text-purple-400">↔️</span>
+                  Sidestepping
+                </span>
+              </li>
+            </Link>
+            <Link to="/training/heatrage" onClick={() => { setTrainingDropdown(false); setOpen(false); }}>
+              <li className="px-4 py-3 hover:bg-white/10 cursor-pointer transition-all duration-200 hover:pl-6">
+                <span className="flex items-center gap-2">
+                  <span className="text-orange-400">🔥</span>
+                  Heat & Rage
+                </span>
+              </li>
+            </Link>
+          </ul>
+        </div>
+
 
         {/* ADMIN DROPDOWN */}
         {role == "admin" && (

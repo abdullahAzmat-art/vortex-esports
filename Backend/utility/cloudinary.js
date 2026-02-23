@@ -10,6 +10,10 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET,
 });
 
+if (!process.env.CLOUD_NAME || !process.env.CLOUD_API_KEY || !process.env.CLOUD_API_SECRET) {
+  console.warn("⚠️  Cloudinary environment variables are missing! Image uploads will fail.".bgYellow);
+}
+
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {

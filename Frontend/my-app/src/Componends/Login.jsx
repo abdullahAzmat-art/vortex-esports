@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
-  const [form, setForm] = useState({email: "", password: "" });
+  const [form, setForm] = useState({ email: "", password: "" });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -33,9 +33,9 @@ const Login = () => {
           position: "top-right",
           theme: "dark",
         });
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("role", result.user.role);
-    window.location.href = "/";
+        sessionStorage.setItem("token", result.token);
+        sessionStorage.setItem("role", result.user.role);
+        window.location.href = "/";
       } else {
         toast.error(result.message || "SignIn Failed ❌", {
           position: "top-right",
@@ -57,10 +57,10 @@ const Login = () => {
       <div className="bg-black/40 backdrop-blur-2xl border border-white/20 shadow-xl rounded-2xl p-10 w-full max-w-md text-white">
 
         <h1 className="text-3xl font-bold text-center mb-8 uppercase tracking-wide bg-clip-text text-transparent bg-white">
-            Welcome Back
+          Welcome Back
         </h1>
 
-      
+
 
         {/* Email */}
         <div className="relative mb-6">
@@ -102,7 +102,7 @@ const Login = () => {
 
         {/* Login Redirect */}
         <p className="text-center mt-4 text-gray-300 text-sm">
-         Create the Account {" "}
+          Create the Account {" "}
           <Link to={"/signup"} className="text-indigo-300 hover:underline cursor-pointer">
             Sign up
           </Link>

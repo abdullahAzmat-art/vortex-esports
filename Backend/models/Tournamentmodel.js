@@ -1,23 +1,28 @@
 // models/Tournament.js
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 
 const tournamentSchema = new mongoose.Schema({
   title: { type: String, required: true },
   game: { type: String, required: true },
-  maxTeams: { type: String, required: true }, 
-  maxMember: { type: String, required: true }, 
+  maxTeams: { type: String, required: true },
+  maxMember: { type: String, required: true },
   description: { type: String },
   entryFee: { type: Number, required: true },
   prizePool: { type: String },
   tournamentdate: { type: String, required: true },
-  status: { 
-    type: String, 
-    enum: ["upcoming", "ongoing", "completed"],  
-    default: "upcoming" 
+  status: {
+    type: String,
+    enum: ["upcoming", "ongoing", "completed"],
+    default: "upcoming"
   },
-picture: { type: String }, // image URL or file path
-LinkstoLive: { type: String },
-  createdAt: { type: Date, default: Date.now }
+  tournamentType: {
+    type: String,
+    enum: ["single", "double"],
+    default: "single"
+  },
+  picture: { type: String },
+  LinkstoLive: { type: String },
+  createdAt: { type: Date, default: Date.now },
 });
 
 export default mongoose.model("Tournament", tournamentSchema);

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { toast } from "react-toastify";
 
 const ViewTournament = () => {
+  const navigate = useNavigate();
   const [cardsData, setCardsData] = useState([]);
 
   const getthedata = async () => {
@@ -13,10 +15,10 @@ const ViewTournament = () => {
       const tournaments = Array.isArray(parseddata)
         ? parseddata
         : Array.isArray(parseddata.tournament)
-        ? parseddata.tournament
-        : parseddata.tournament
-        ? [parseddata.tournament]
-        : [];
+          ? parseddata.tournament
+          : parseddata.tournament
+            ? [parseddata.tournament]
+            : [];
 
       setCardsData(tournaments);
     } catch (error) {
@@ -56,6 +58,14 @@ const ViewTournament = () => {
     }
   };
 
+  const getImageUrl = (path) => {
+    if (!path) return "https://via.placeholder.com/400x300?text=No+Image";
+    if (path.startsWith("http") || path.startsWith("https")) {
+      return path;
+    }
+    return `${import.meta.env.VITE_API_URL}/${path.replace(/\\/g, "/")}`;
+  };
+
   return (
     <div className="px-4 sm:px-8 md:px-12 lg:px-20 mt-20">
       <div className="bg-black/40 backdrop-blur-2xl shadow-xl rounded-2xl p-6 sm:p-10 w-full text-white">
@@ -83,7 +93,7 @@ const ViewTournament = () => {
                 }}
               >
                 <img
-                  src={`${ele.picture}`}
+                  src={getImageUrl(ele.picture)}
                   alt="Tournament"
                   className="w-full h-48 sm:h-60 md:h-64 lg:h-72 object-cover"
                 />
@@ -109,10 +119,23 @@ const ViewTournament = () => {
                 </p>
 
                 <button
-                  className="absolute top-3 right-3 text-red-600 text-3xl"
-                  onClick={() => deleteit(ele._id)}
+                  className="absolute top-3 right-3 text-red-600 text-3xl z-20"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    deleteit(ele._id);
+                  }}
                 >
                   <MdOutlineDeleteOutline />
+                </button>
+
+                <button
+                  className="absolute bottom-3 right-3 bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold uppercase tracking-wide text-sm hover:bg-indigo-700 z-20 transition"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/register-tournament/${ele._id}`);
+                  }}
+                >
+                  Join
                 </button>
               </div>
             </div>

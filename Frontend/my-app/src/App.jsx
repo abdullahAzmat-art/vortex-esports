@@ -1,4 +1,3 @@
-import { useRef, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layouts from "./Componends/Layouts";
 import Home from "./Componends/Home";
@@ -14,34 +13,24 @@ import Addanouncement from "./Componends/Addanouncement";
 import Announcementview from "./Componends/Announcementview";
 import LocomotiveScroll from 'locomotive-scroll';
 import Aboutus from "./Componends/Abdoutus";
+import AboutPage from "./Componends/AboutPage";
+import AnnouncementsPage from "./Componends/AnnouncementsPage";
+import TournamentsPage from "./Componends/TournamentsPage";
 import FrameData from "./Componends/FrameData";
 import Sidestepping from "./Componends/Sidestepping";
 import HeatRage from "./Componends/HeatRage";
+import RegistrationForm from "./Componends/RegistrationForm";
+import TournamentRegistrations from "./Componends/TournamentRegistrations";
+import TournamentDetails from "./Componends/TournamentDetails";
+import TournamentBrackets from "./Componends/TournamentBrackets";
+import AdminBrackets from "./Componends/AdminBrackets";
 
 function App() {
 
-
-  const videoRef = useRef(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.5; // 0.5 = Slow | 1 = Normal | 2 = Fast
-    }
-  }, []);
-
   return (
-    <div  >
-      {/* Background Video */}
-      <video
-        ref={videoRef}
-        className="fixed top-0 left-0 w-full h-full object-cover -z-10"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/Comp 1.mp4" type="video/mp4" />
-      </video>
+    <div>
+      {/* Black Background */}
+      <div className="fixed top-0 left-0 w-full h-full  bg-black z-10"  />
 
       {/* Content */}
       <BrowserRouter>
@@ -50,7 +39,9 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/about" element={<Aboutus />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/announcements" element={<AnnouncementsPage />} />
+            <Route path="/tournaments" element={<TournamentsPage />} />
 
             {/* Training Routes */}
             <Route path="/training/framedata" element={<FrameData />} />
@@ -60,11 +51,19 @@ function App() {
             <Route element={<Checkadmin />}>
               <Route path="/tournamentadd" element={<Touranamentadd />} />
               <Route path="/viewtournament" element={<ViewTournament />} />
+              <Route path="/tournament-registrations" element={<TournamentRegistrations />} />
               <Route path="/users" element={<Userbro />} />
               <Route path="/announcementadd" element={<Addanouncement />} />
               <Route path="/viewannouncement" element={<Announcementview />} />
-
+              <Route path="/admin/brackets/:id" element={<AdminBrackets />} />
             </Route>
+
+            {/* Registration Route */}
+            <Route path="/register-tournament/:id" element={<RegistrationForm />} />
+
+            {/* Tournament Detailed Routes */}
+            <Route path="/tournament-details/:id" element={<TournamentDetails />} />
+            <Route path="/tournament-brackets/:id" element={<TournamentBrackets />} />
           </Routes>
         </Layouts>
       </BrowserRouter>

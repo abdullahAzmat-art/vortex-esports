@@ -7,11 +7,11 @@ const Navbar = () => {
   const [trainingDropdown, setTrainingDropdown] = useState(false);
 
   // Simulating role - in your app this comes from localStorage
-  const role = localStorage.getItem("role"); // Change to null to test non-admin view
+  const role = sessionStorage.getItem("role"); // Change to null to test non-admin view
 
   const logouts = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("role");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("role");
     window.location.href = "/";
     console.log("Logout clicked");
   };
@@ -41,18 +41,15 @@ const Navbar = () => {
         ${open ? "top-full mt-2 bg-black/90 backdrop-blur-xl rounded-3xl" : "top-[-500px] md:top-0"}
         `}
       >
-        <Link to="/" onClick={() => setOpen(false)} className="hover:text-indigo-400 transition">
-          Home
-        </Link>
-        <a href="#about" onClick={() => setOpen(false)} className="hover:text-indigo-400 transition">
+        <Link to="/about" onClick={() => setOpen(false)} className="hover:text-indigo-400 transition">
           About us
-        </a>
-        <a href="#announcement" onClick={() => setOpen(false)} className="hover:text-indigo-400 transition">
+        </Link>
+        <Link to="/announcements" onClick={() => setOpen(false)} className="hover:text-indigo-400 transition">
           Announcements
-        </a>
-        <a href="#tournament" onClick={() => setOpen(false)} className="hover:text-indigo-400 transition">
+        </Link>
+        <Link to="/tournaments" onClick={() => setOpen(false)} className="hover:text-indigo-400 transition">
           Tournaments
-        </a>
+        </Link>
 
         {/* TRAINING DROPDOWN */}
         <div
@@ -102,51 +99,99 @@ const Navbar = () => {
 
         {/* ADMIN DROPDOWN */}
         {role == "admin" && (
-          <div className="relative">
+          <div
+            className="relative"
+            onMouseEnter={() => setDropdown(true)}
+            onMouseLeave={() => setDropdown(false)}
+          >
             <button
-              onClick={() => setDropdown(!dropdown)}
-              className="px-3 rounded hover:text-indigo-400 transition"
+              className="px-3 rounded hover:text-indigo-400 transition-all duration-300"
             >
               Admin ▼
             </button>
 
-            {dropdown && (
-              <ul className="absolute md:left-auto left-0 md:right-0 mt-2 w-52 bg-black/90 backdrop-blur-xl rounded-lg shadow-lg border border-gray-800 overflow-hidden">
-                <Link to="/users">
-                  <li className="px-4 py-2 hover:bg-white/10 cursor-pointer transition">
-                    View Users
-                  </li>
-                </Link>
-                <Link to="/tournamentadd">
-                  <li className="px-4 py-2 hover:bg-white/10 cursor-pointer transition">
-                    Add Tournament
-                  </li>
-                </Link>
-                <Link to="/viewtournament">
-                  <li className="px-4 py-2 hover:bg-white/10 cursor-pointer transition">
-                    View Tournament
-                  </li>
-                </Link>
-                <Link to="/announcementadd">
-                  <li className="px-4 py-2 hover:bg-white/10 cursor-pointer transition">
-                    Add Announcement
-                  </li>
-                </Link>
-                <Link to="/viewannouncement">
-                  <li className="px-4 py-2 hover:bg-white/10 cursor-pointer transition">
-                    View Announcement
-                  </li>
-                </Link>
-                <Link>
-                  <li
-                    className="px-4 py-2 hover:bg-red-500/20 text-red-400 cursor-pointer transition"
-                    onClick={logouts}
-                  >
-                    Logout
-                  </li>
-                </Link>
-              </ul>
-            )}
+            <ul
+              className={`absolute md:left-auto left-0 md:right-0 mt-2 w-72 md:w-[450px] bg-black/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/10 overflow-hidden z-50 transition-all duration-300 ease-out origin-top grid grid-cols-1 md:grid-cols-2 p-2 gap-1 ${dropdown
+                ? 'opacity-100 scale-100 translate-y-0 visible'
+                : 'opacity-0 scale-95 -translate-y-2 invisible'
+                }`}
+            >
+              <Link to="/users" onClick={() => { setDropdown(false); setOpen(false); }}>
+                <li className="px-4 py-3 hover:bg-white/10 rounded-xl cursor-pointer transition-all duration-200 group">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl bg-blue-500/20 w-10 h-10 flex items-center justify-center rounded-lg group-hover:scale-110 transition-transform">👥</span>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-sm">View Users</span>
+                      <span className="text-[10px] text-gray-400">Manage community</span>
+                    </div>
+                  </div>
+                </li>
+              </Link>
+              <Link to="/tournamentadd" onClick={() => { setDropdown(false); setOpen(false); }}>
+                <li className="px-4 py-3 hover:bg-white/10 rounded-xl cursor-pointer transition-all duration-200 group">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl bg-green-500/20 w-10 h-10 flex items-center justify-center rounded-lg group-hover:scale-110 transition-transform">➕</span>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-sm">Add Tournament</span>
+                      <span className="text-[10px] text-gray-400">Create new event</span>
+                    </div>
+                  </div>
+                </li>
+              </Link>
+              <Link to="/viewtournament" onClick={() => { setDropdown(false); setOpen(false); }}>
+                <li className="px-4 py-3 hover:bg-white/10 rounded-xl cursor-pointer transition-all duration-200 group">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl bg-purple-500/20 w-10 h-10 flex items-center justify-center rounded-lg group-hover:scale-110 transition-transform">🏆</span>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-sm">View Tournament</span>
+                      <span className="text-[10px] text-gray-400">Manage events</span>
+                    </div>
+                  </div>
+                </li>
+              </Link>
+              <Link to="/tournament-registrations" onClick={() => { setDropdown(false); setOpen(false); }}>
+                <li className="px-4 py-3 hover:bg-white/10 rounded-xl cursor-pointer transition-all duration-200 group">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl bg-cyan-500/20 w-10 h-10 flex items-center justify-center rounded-lg group-hover:scale-110 transition-transform">📝</span>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-sm">Registrations</span>
+                      <span className="text-[10px] text-gray-400">Player entries</span>
+                    </div>
+                  </div>
+                </li>
+              </Link>
+              <Link to="/announcementadd" onClick={() => { setDropdown(false); setOpen(false); }}>
+                <li className="px-4 py-3 hover:bg-white/10 rounded-xl cursor-pointer transition-all duration-200 group">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl bg-yellow-500/20 w-10 h-10 flex items-center justify-center rounded-lg group-hover:scale-110 transition-transform">📢</span>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-sm">Add News</span>
+                      <span className="text-[10px] text-gray-400">Post announcements</span>
+                    </div>
+                  </div>
+                </li>
+              </Link>
+              <Link to="/viewannouncement" onClick={() => { setDropdown(false); setOpen(false); }}>
+                <li className="px-4 py-3 hover:bg-white/10 rounded-xl cursor-pointer transition-all duration-200 group">
+                  <div className="flex items-center gap-3">
+                    <span className="text-xl bg-indigo-500/20 w-10 h-10 flex items-center justify-center rounded-lg group-hover:scale-110 transition-transform">📋</span>
+                    <div className="flex flex-col">
+                      <span className="font-bold text-sm">View News</span>
+                      <span className="text-[10px] text-gray-400">History & edits</span>
+                    </div>
+                  </div>
+                </li>
+              </Link>
+              <div
+                className="col-span-1 md:col-span-2 mt-2 pt-2 border-t border-white/5"
+                onClick={logouts}
+              >
+                <li className="px-4 py-3 hover:bg-red-500/20 text-red-400 rounded-xl cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 group">
+                  <span className="text-xl group-hover:rotate-12 transition-transform">🚪</span>
+                  <span className="font-bold">Logout Session</span>
+                </li>
+              </div>
+            </ul>
           </div>
         )}
 

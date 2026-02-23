@@ -11,6 +11,7 @@ const TournamentAdd = () => {
     entryFee: "",
     prizePool: "",
     tournamentdate: "",
+    tournamentType: "single",
   });
 
   const [picture, setPicture] = useState(null);
@@ -59,7 +60,8 @@ const TournamentAdd = () => {
           entryFee: "",
           prizePool: "",
           tournamentdate: "",
-          LinkstoLive:""
+          LinkstoLive: "",
+          tournamentType: "single",
         });
         setPicture(null);
       } else {
@@ -192,7 +194,7 @@ const TournamentAdd = () => {
             </label>
           </div>
         </div>
-                <div className="relative mb-6">
+        <div className="relative mb-6">
           <input
             type="text"
             name="LinkstoLive"
@@ -206,7 +208,24 @@ const TournamentAdd = () => {
           </label>
         </div>
 
-  {/* Date */}
+        {/* Tournament Type */}
+        <div className="relative mb-6">
+          <select
+            name="tournamentType"
+            value={form.tournamentType}
+            onChange={handleChange}
+            className="w-full bg-transparent border-b border-gray-400 outline-none py-3 text-white appearance-none"
+            required
+          >
+            <option value="single" className="bg-black text-white">Single Elimination</option>
+            <option value="double" className="bg-black text-white">Double Elimination</option>
+          </select>
+          <label className="absolute left-0 -top-3 text-sm text-gray-400">
+            Tournament Type
+          </label>
+        </div>
+
+        {/* Date */}
         <div className="relative mb-6">
           <input
             type="text"
@@ -230,7 +249,7 @@ const TournamentAdd = () => {
           />
         </div>
 
-      
+
 
         <button
           className="w-full py-3 rounded-lg bg-indigo-600 hover:opacity-90 transition font-semibold text-white uppercase tracking-wide"

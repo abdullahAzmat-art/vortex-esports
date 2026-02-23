@@ -31,8 +31,8 @@ const Signup = () => {
           theme: "dark",
         });
 
-        localStorage.setItem("token", result.token);
-        localStorage.setItem("role", result.user.role);
+        sessionStorage.setItem("token", result.token);
+        sessionStorage.setItem("role", result.user.role);
       } else {
         toast.error(result.message || "Signup Failed ❌", {
           position: "top-right",

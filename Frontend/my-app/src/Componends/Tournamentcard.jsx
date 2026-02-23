@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Tournamentcard = () => {
+  const navigate = useNavigate();
   const [cardsData, setCardsData] = useState([]);
 
   const getthedata = async () => {
@@ -12,10 +13,10 @@ const Tournamentcard = () => {
       const tournaments = Array.isArray(parseddata)
         ? parseddata
         : Array.isArray(parseddata.tournament)
-        ? parseddata.tournament
-        : parseddata.tournament
-        ? [parseddata.tournament]
-        : [];
+          ? parseddata.tournament
+          : parseddata.tournament
+            ? [parseddata.tournament]
+            : [];
 
       setCardsData(tournaments);
     } catch (error) {
@@ -91,15 +92,12 @@ const Tournamentcard = () => {
                 </p>
 
                 <div className="px-4 pb-6">
-                  <a
-                    href={ele.linksToLive || ele.LinkstoLive}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    className="px-6 sm:px-8 py-2 sm:py-3 text-sm text-white rounded-full font-medium bg-gray-900/80 border border-gray-700 backdrop-blur z-20 relative hover:bg-indigo-600 transition"
+                    onClick={() => navigate(`/tournament-details/${ele._id}`)}
                   >
-                    <button className="px-6 sm:px-8 py-2 sm:py-3 text-sm text-white rounded-full font-medium bg-gray-900/80 backdrop-blur">
-                      Join Now
-                    </button>
-                  </a>
+                    View Detailed
+                  </button>
                 </div>
 
               </div>

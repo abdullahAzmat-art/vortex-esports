@@ -5,8 +5,24 @@ import { parser } from "../utility/cloudinary.js";
 
 const router = express.Router();
 
+// Multer error handling middleware
+const handleMulterError = (req, res, next) => {
+    const upload = parser.single("picture");
+
+    upload(req, res, (err) => {
+        if (err) {
+            console.error("Multer/Cloudinary error:", err.message);
+            return res.status(500).json({
+                message: "Image upload failed. Please check Cloudinary configuration.",
+                error: err.message
+            });
+        }
+        next();
+    });
+};
+
 // Create Tournament
-router.post("/createTournament", parser.single("picture") , postthetournament);
+router.post("/createTournament", handleMulterError, postthetournament);
 
 // Get All Tournaments
 router.get("/getTournament", getalltournaments);

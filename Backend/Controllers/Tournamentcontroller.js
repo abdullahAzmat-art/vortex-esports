@@ -1,12 +1,11 @@
 import multer from "multer";
-import  Tournamentmodel  from "../models/Tournamentmodel.js";
+import Tournamentmodel from "../models/Tournamentmodel.js";
 
 // ✅ CREATE Tournament
 
 
 export const postthetournament = async (req, res) => {
   try {
-    // req.file.path is the Cloudinary URL
     const picture = req.file?.path || null;
 
     const { title, game, description, tournamentdate, entryFee, prizePool, maxTeams, maxMember, LinkstoLive } = req.body;
@@ -31,13 +30,17 @@ export const postthetournament = async (req, res) => {
       picture,
       LinkstoLive
     });
-
     res.status(201).json({
       message: "Tournament created successfully ✅",
-      tournament
+      tournament: tournament.toObject()
     });
+
+
   } catch (err) {
-    console.error(err);
+    console.error("=== ERROR CAUGHT ===");
+    console.error("Error name:", err.name);
+    console.error("Error message:", err.message);
+    console.error("Stack trace:", err.stack);
     res.status(500).json({ message: err.message });
   }
 };

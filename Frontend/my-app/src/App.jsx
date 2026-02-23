@@ -30,7 +30,7 @@ function App() {
   return (
     <div>
       {/* Black Background */}
-      <div className="fixed top-0 left-0 w-full h-full  bg-black z-10"  />
+      <div className="fixed top-0 left-0 w-full h-full  bg-black -z-10" />
 
       {/* Content */}
       <BrowserRouter>

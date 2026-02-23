@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const [trainingDropdown, setTrainingDropdown] = useState(false);
+  const navigate = useNavigate();
 
   // Simulating role - in your app this comes from localStorage
   const role = sessionStorage.getItem("role"); // Change to null to test non-admin view
@@ -12,7 +13,7 @@ const Navbar = () => {
   const logouts = () => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("role");
-    window.location.href = "/";
+    navigate("/");
     console.log("Logout clicked");
   };
 

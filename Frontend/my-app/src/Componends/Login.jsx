@@ -35,7 +35,7 @@ const Login = () => {
         });
         sessionStorage.setItem("token", result.token);
         sessionStorage.setItem("role", result.user.role);
-        window.location.href = "/";
+        navigate("/");
       } else {
         toast.error(result.message || "SignIn Failed ❌", {
           position: "top-right",

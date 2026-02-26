@@ -166,15 +166,15 @@ const RegistrationForm = () => {
                             <p className="font-medium text-white">Send payment to:</p>
                             <div className="bg-black/30 rounded p-3 border border-gray-700">
                                 <p className="text-gray-400">Account Title:</p>
-                                <p className="font-mono text-white">Vortex Esports</p>
+                                <p className="font-mono text-white">Muhammad durab</p>
                             </div>
                             <div className="bg-black/30 rounded p-3 border border-gray-700">
                                 <p className="text-gray-400">Account Number:</p>
-                                <p className="font-mono text-white text-lg">1234 5678 9012 3456</p>
+                                <p className="font-mono text-white text-lg">0328 4500944</p>
                             </div>
                             <div className="bg-black/30 rounded p-3 border border-gray-700">
                                 <p className="text-gray-400">Bank Name:</p>
-                                <p className="font-mono text-white">Easy Paisa / Jazz Cash</p>
+                                <p className="font-mono text-white">Easy Paisa </p>
                             </div>
                             <p className="text-yellow-400 text-xs mt-3">⚠️ Upload payment proof screenshot below after transfer</p>
                         </div>

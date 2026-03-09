@@ -14,7 +14,6 @@ const TournamentRegistrations = () => {
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/getTournament`);
             const data = await response.json();
-            console.log(data)
             const tournamentArray = Array.isArray(data) ? data : [];
             setTournaments(tournamentArray);
         } catch (error) {
@@ -54,7 +53,6 @@ const TournamentRegistrations = () => {
                 `${import.meta.env.VITE_API_URL}/api/v1/sendemail/${registrationId}`
             );
             const data = await response.json();
-            console.log(data)
             if (data.success) {
                 toast.success("Verification email sent successfully!");
                 // Update the local state to reflect the verified status
@@ -184,6 +182,7 @@ const TournamentRegistrations = () => {
                                             <th className="px-4 py-3 text-left">#</th>
                                             <th className="px-4 py-3 text-left">Full Name</th>
                                             <th className="px-4 py-3 text-left">Gaming Name</th>
+                                            <th className="px-4 py-3 text-left">Phone Number</th>
                                             <th className="px-4 py-3 text-left">Email</th>
                                             <th className="px-4 py-3 text-left">City</th>
                                             <th className="px-4 py-3 text-left">Payment Status</th>
@@ -201,6 +200,7 @@ const TournamentRegistrations = () => {
                                                 <td className="px-4 py-3">{index + 1}</td>
                                                 <td className="px-4 py-3">{reg.fullName}</td>
                                                 <td className="px-4 py-3">{reg.gamingName}</td>
+                                                <td className="px-4 py-3">{reg.phoneNumber}</td>
                                                 <td className="px-4 py-3">{reg.email}</td>
                                                 <td className="px-4 py-3">{reg.city}</td>
                                                 <td className="px-4 py-3">

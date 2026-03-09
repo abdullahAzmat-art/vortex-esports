@@ -11,6 +11,7 @@ const RegistrationForm = () => {
         fullName: "",
         city: "",
         gamingName: "",
+        phoneNumber: "",
         email: "",
         paymentProof: "", // This will handle the file input
     });
@@ -45,20 +46,18 @@ const RegistrationForm = () => {
         formData.append("fullName", form.fullName);
         formData.append("city", form.city);
         formData.append("gamingName", form.gamingName);
+        formData.append("phoneNumber", form.phoneNumber);
         formData.append("email", form.email);
         formData.append("tournamentId", id);
         formData.append("paymentProof", form.paymentProof);
 
         try {
-            console.log("fkdkdgo");
             const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/addteam`, {
                 method: "POST",
                 body: formData, // Send formData instead of JSON
             });
-            console.log(response , "kfdk");
 
             const result = await response.json();
-            console.log(result , "vjdj");
 
             if (result.success || response.ok) { // Check for success flag or OK status
                 toast.success("Registration Successful! 🎉", {
@@ -140,6 +139,22 @@ const RegistrationForm = () => {
                         />
                         <label className="absolute left-0 top-3 text-gray-400 transition-all peer-focus:-top-3 peer-focus:text-sm peer-valid:-top-3 peer-valid:text-sm peer-placeholder-shown:top-3 peer-placeholder-shown:text-base">
                             Gaming Name / IGN
+                        </label>
+                    </div>
+
+                    {/* Phone Number */}
+                    <div className="relative">
+                        <input
+                            type="text"
+                            name="phoneNumber"
+                            value={form.phoneNumber}
+                            onChange={handleChange}
+                            className="w-full bg-transparent border-b border-gray-400 outline-none py-3 text-white peer placeholder-transparent"
+                            placeholder="Phone Number"
+                            required
+                        />
+                        <label className="absolute left-0 top-3 text-gray-400 transition-all peer-focus:-top-3 peer-focus:text-sm peer-valid:-top-3 peer-valid:text-sm peer-placeholder-shown:top-3 peer-placeholder-shown:text-base">
+                            Phone Number
                         </label>
                     </div>
 

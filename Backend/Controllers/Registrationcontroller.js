@@ -11,15 +11,15 @@ export const addtheteam = async (req, res) => {
       fullName,
       city,
       gamingName,
+      phoneNumber,
       email,
       tournamentId
     } = req.body;
 
     const paymentProof = req.file?.path || null;
 
-    console.log(paymentProof);
 
-    if (!fullName || !city || !gamingName || !email || !tournamentId || !paymentProof) {
+    if (!fullName || !city || !gamingName || !phoneNumber || !email || !tournamentId || !paymentProof) {
       return res.status(400).json({
         success: false,
         message: "All fields are required"
@@ -51,6 +51,7 @@ export const addtheteam = async (req, res) => {
       fullName,
       city,
       gamingName,
+      phoneNumber,
       email,
       tournamentId,
       paymentProof
@@ -61,7 +62,6 @@ export const addtheteam = async (req, res) => {
       message: "Registration successful. Waiting for payment verification.",
       data: registration
     });
-    console.log(registration)
 
   } catch (error) {
     console.error("=== REGISTRATION ERROR ===");

@@ -67,7 +67,7 @@ const RegistrationForm = () => {
                 });
                 // Optional: Redirect after success
                 setTimeout(() => {
-                    navigate("/viewtournament");
+                    navigate("/");
                 }, 2000);
             } else {
                 toast.error(result.message || "Registration Failed ❌", {

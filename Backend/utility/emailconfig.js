@@ -1,11 +1,11 @@
 import nodemailer from "nodemailer";
 const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
+    host: process.env.EMAIL_HOST || "smtp.gmail.com",
+    port: process.env.EMAIL_PORT || 587,
     secure: false, // Use true for port 465, false for port 587
     auth: {
-        user: "sledgevortx@gmail.com",
-        pass: "agvw drsx zkxo lkme",
+        user: process.env.EMAIL_USER || "sledgevortx@gmail.com",
+        pass: process.env.EMAIL_PASS || "vypw qzcp irut oivc",
     },
 });
 
@@ -17,7 +17,7 @@ export const sendPaymentVerificationEmail = async (registration) => {
     const gamingName = registration.gamingName;
     const city = registration.city;
     const transactionId = registration._id;
-    const tournamentName = registration.tournamentId?.name || 'Tournament';
+    const tournamentName = registration.tournamentId?.title || 'Tournament';
     const paymentDate = new Date(registration.createdAt).toLocaleDateString('en-GB', {
         day: 'numeric',
         month: 'short',
@@ -59,32 +59,40 @@ export const sendPaymentVerificationEmail = async (registration) => {
         h2 { margin: 0 0 16px; color: #f4f4f5; font-size: 22px; font-weight: 600; text-align: center; }
         p { margin: 0 0 32px; color: #a1a1aa; font-size: 15px; text-align: center; max-width: 480px; margin-left: auto; margin-right: auto; }
         
-        /* Details Table */
-        .details-wrapper { background-color: #27272a40; border-radius: 6px; overflow: hidden; border: 1px solid #3f3f46; margin-top: 32px; }
-        .details-row { padding: 16px 20px; border-bottom: 1px solid #3f3f46; display: flex; justify-content: space-between; align-items: center; }
-        .details-row:last-child { border-bottom: none; }
-        .label { color: #71717a; font-weight: 500; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
-        .value { color: #f4f4f5; font-weight: 600; text-align: right; font-size: 14px; }
+        /* Details Section */
+        .details-wrapper { background-color: #1c1c1f; border-radius: 8px; border: 1px solid #27272a; margin-top: 40px; }
+        .details-table { width: 100%; border-collapse: collapse; }
+        .details-cell { padding: 22px 28px; border-bottom: 1px solid #27272a; }
+        .details-row:last-child .details-cell { border-bottom: none; }
+        .label { color: #71717a; font-weight: 500; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; width: 35%; vertical-align: top; }
+        .value { color: #f4f4f5; font-weight: 600; text-align: right; font-size: 14px; width: 65%; word-break: break-all; }
+        
+        /* Typography */
+        h2 { margin: 0 0 24px; color: #ffffff; font-size: 26px; font-weight: 700; text-align: center; letter-spacing: -0.5px; }
+        p { margin: 0 0 36px; color: #a1a1aa; font-size: 16px; text-align: center; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.7; }
         
         /* Buttons */
-        .btn-container { text-align: center; margin-top: 40px; }
-        .btn { display: inline-block; background: #6d28d9; color: #ffffff; text-decoration: none; padding: 14px 28px; border-radius: 6px; font-weight: 500; transition: all 0.2s; font-size: 14px; letter-spacing: 0.5px; box-shadow: 0 4px 6px -1px rgba(109, 40, 217, 0.3); }
-        .btn:hover { background: #5b21b6; transform: translateY(-1px); box-shadow: 0 6px 8px -1px rgba(109, 40, 217, 0.4); }
+        .btn-container { text-align: center; margin-top: 44px; }
+        .btn { display: inline-block; background: #7c3aed; color: #ffffff; text-decoration: none; padding: 16px 32px; border-radius: 8px; font-weight: 600; transition: all 0.2s; font-size: 15px; letter-spacing: 0.5px; box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.25); }
+        .btn:hover { background: #6d28d9; transform: translateY(-1px); }
         
         /* Footer */
-        .footer { padding: 32px 20px; text-align: center; background-color: #09090b; }
-        .footer-text { margin: 0 0 8px; color: #52525b; font-size: 12px; }
-        .footer-links { margin: 16px 0 0; }
-        .footer-links a { Color: #71717a; text-decoration: none; font-size: 11px; margin: 0 8px; transition: color 0.2s; }
+        .footer { padding: 40px 20px; text-align: center; background-color: #09090b; }
+        .footer-text { margin: 0 0 10px; color: #52525b; font-size: 12px; }
+        .footer-links { margin: 20px 0 0; }
+        .footer-links a { Color: #71717a; text-decoration: none; font-size: 11px; margin: 0 12px; transition: color 0.2s; }
         .footer-links a:hover { color: #a1a1aa; }
-        .divider { height: 1px; background-color: #27272a; margin: 24px auto; width: 40px; }
+        .divider { height: 1px; background-color: #27272a; margin: 30px auto; width: 40px; }
 
         /* Mobile */
         @media only screen and (max-width: 600px) {
-            .header { padding: 32px 20px; }
-            .content { padding: 32px 20px; }
-            .details-row { padding: 14px 16px; }
+            .header { padding: 40px 24px; }
+            .content { padding: 40px 24px; }
+            .details-cell { padding: 18px 20px; }
+            .label { font-size: 11px; }
             .value { font-size: 13px; }
+            h2 { font-size: 22px; }
+            p { font-size: 15px; }
         }
     </style>
 </head>
@@ -94,7 +102,7 @@ export const sendPaymentVerificationEmail = async (registration) => {
             <!-- Header -->
             <tr>
                 <td class="header">
-                    <h1>VORTX ESPORTS</h1>
+                    <h1 style="margin: 0;">VORTX ESPORTS</h1>
                     <div class="subtitle">Official Tournament Registration</div>
                 </td>
             </tr>
@@ -116,29 +124,43 @@ export const sendPaymentVerificationEmail = async (registration) => {
             : `Hello ${userName}, we have received your payment proof. Our team is currently reviewing the transaction details.`}
                     </p>
 
-                    <!-- Details Section -->
+                    <!-- Details Table -->
                     <div class="details-wrapper">
-                        <div class="details-row">
-                            <span class="label">Reference ID</span>
-                            <span class="value" style="font-family: monospace; letter-spacing: 0.5px;">${transactionId}</span>
-                        </div>
-                        <div class="details-row">
-                            <span class="label">Participant</span>
-                            <span class="value">${gamingName}</span>
-                        </div>
-                        <div class="details-row">
-                            <span class="label">Location</span>
-                            <span class="value">${city}</span>
-                        </div>
-                        <div class="details-row">
-                            <span class="label">Tournament</span>
-                            <span class="value">${tournamentName}</span>
-                        </div>
-                        <div class="details-row">
-                            <span class="label">Date</span>
-                            <span class="value">${paymentDate}</span>
-                        </div>
+                        <table class="details-table">
+                            <tr class="details-row">
+                                <td class="details-cell label">Reference ID</td>
+                                <td class="details-cell value" style="font-family: 'Courier New', Courier, monospace;">${transactionId}</td>
+                            </tr>
+                            <tr class="details-row">
+                                <td class="details-cell label">Participant</td>
+                                <td class="details-cell value">${gamingName}</td>
+                            </tr>
+                            <tr class="details-row">
+                                <td class="details-cell label">Location</td>
+                                <td class="details-cell value">${city}</td>
+                            </tr>
+                            <tr class="details-row">
+                                <td class="details-cell label">Tournament</td>
+                                <td class="details-cell value">${tournamentName}</td>
+                            </tr>
+                            <tr class="details-row">
+                                <td class="details-cell label">Date</td>
+                                <td class="details-cell value">${paymentDate}</td>
+                            </tr>
+                        </table>
                     </div>
+
+                    ${status === 'verified' ? `
+                    <div class="btn-container">
+                        <a href="#" class="btn">View Tournament Details</a>
+                    </div>
+                    ` : ''}
+
+                    <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid #27272a; text-align: center;">
+                        <p style="font-size: 13px; color: #71717a; margin: 0;">If you have any questions, please reply directly to this email.</p>
+                    </div>
+                </td>
+            </tr>
 
                     ${status === 'verified' ? `
                     <div class="btn-container">

@@ -126,19 +126,35 @@ export const sendemailforverfication = async (req, res) => {
     const { id } = req.params;
     const registration = await Registrations.findById(id).populate("tournamentId");
     if (!registration) {
-      return res.status(404).json({ success: false, message: "Not found" });
+      return res.status(404).json({ success: false, message: "Registration not found" });
     }
+
+    // Attempt to send email
+    const emailResult = await sendPaymentVerificationEmail(registration);
+
+    if (!emailResult.success) {
+      console.log("Stopping verification: Email failed to send.");
+      return res.status(500).json({
+        success: false,
+        message: "Failed to send verification email. Your registration status remains 'pending'.",
+        error: emailResult.error
+      });
+    }
+
+    console.log("Email sent successfully! Now updating database status to 'verified'...");
+
+    // Only update status if email was sent successfully
     registration.paymentStatus = "verified";
     await registration.save();
-    await sendPaymentVerificationEmail(registration)
 
     res.status(200).json({
       success: true,
+      message: "Payment verified and email sent successfully",
       data: registration
     });
   } catch (error) {
-    console.error("Error sending verification email:", error);
-    res.status(500).json({ success: false, message: "Server error", error: error.message });
+    console.error("Error in verification flow:", error);
+    res.status(500).json({ success: false, message: "Internal server error", error: error.message });
   }
 }
 

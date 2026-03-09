@@ -57,8 +57,14 @@ const TournamentRegistrations = () => {
             console.log(data)
             if (data.success) {
                 toast.success("Verification email sent successfully!");
+                // Update the local state to reflect the verified status
+                setRegistrations(prevRegistrations =>
+                    prevRegistrations.map(reg =>
+                        reg._id === registrationId ? { ...reg, paymentStatus: "verified" } : reg
+                    )
+                );
             } else {
-                toast.error("Failed to send verification email");
+                toast.error(data.message || "Failed to send verification email");
             }
         } catch (error) {
             console.error("Error sending email:", error);

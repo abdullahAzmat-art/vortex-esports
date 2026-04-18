@@ -31,10 +31,11 @@ router.get("/getTournament", getalltournaments);
 router.get("/getTournament/:id", gettournamentById);
 
 // Update Tournament
-router.put("/putTournament/:id", updatetournament);
+router.put("/putTournament/:id", handleMulterError, updatetournament);
 
 // Delete Tournament
 router.delete("/deleteTournament/:id", deletetournament
 );
+
 
 export default router;

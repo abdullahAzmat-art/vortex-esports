@@ -132,10 +132,10 @@ const ViewTournament = () => {
                   className="absolute bottom-3 right-3 bg-indigo-600 text-white px-4 py-2 rounded-lg font-bold uppercase tracking-wide text-sm hover:bg-indigo-700 z-20 transition"
                   onClick={(e) => {
                     e.stopPropagation();
-                    navigate(`/register-tournament/${ele._id}`);
+                    navigate(`/edittournament/${ele._id}`);
                   }}
                 >
-                  Join
+                  Edit
                 </button>
               </div>
             </div>

@@ -71,7 +71,17 @@ export const gettournamentById = async (req, res) => {
 // ✏️ UPDATE Tournament
 export const updatetournament = async (req, res) => {
   try {
-    const tournament = await Tournamentmodel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    console.log("=== UPDATE TOURNAMENT ===");
+    console.log("ID:", req.params.id);
+    console.log("req.body:", req.body);
+    console.log("req.file:", req.file);
+
+    let updateData = { ...req.body };
+    if (req.file) {
+      updateData.picture = req.file.path;
+    }
+
+    const tournament = await Tournamentmodel.findByIdAndUpdate(req.params.id, updateData, { new: true });
     if (!tournament) {
       return res.status(404).json({ message: "Tournament not found ❌" });
     }
@@ -80,6 +90,7 @@ export const updatetournament = async (req, res) => {
       tournament
     });
   } catch (err) {
+    console.error("Update error:", err.message);
     res.status(500).json({ message: err.message });
   }
 };

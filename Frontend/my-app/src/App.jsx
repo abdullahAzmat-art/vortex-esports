@@ -24,6 +24,7 @@ import TournamentRegistrations from "./Componends/TournamentRegistrations";
 import TournamentDetails from "./Componends/TournamentDetails";
 import TournamentBrackets from "./Componends/TournamentBrackets";
 import AdminBrackets from "./Componends/AdminBrackets";
+import Tournamentedit from "./Componends/Tournamentedit";
 
 function App() {
 
@@ -55,6 +56,7 @@ function App() {
               <Route path="/users" element={<Userbro />} />
               <Route path="/announcementadd" element={<Addanouncement />} />
               <Route path="/viewannouncement" element={<Announcementview />} />
+              <Route path="/edittournament/:id" element={<Tournamentedit/>} />
               <Route path="/admin/brackets/:id" element={<AdminBrackets />} />
             </Route>
 

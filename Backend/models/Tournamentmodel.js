@@ -22,6 +22,7 @@ const tournamentSchema = new mongoose.Schema({
   },
   picture: { type: String },
   LinkstoLive: { type: String },
+  registrationOpen: { type: Boolean, default: true },
   createdAt: { type: Date, default: Date.now },
 });
 

@@ -17,6 +17,26 @@ const RegistrationForm = () => {
     });
 
     const [preview, setPreview] = useState(null);
+    const [registrationOpen, setRegistrationOpen] = useState(true);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchTournamentStatus = async () => {
+            try {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/getTournament/${id}`);
+                const data = await response.json();
+                const tournament = data.tournament || data;
+                if (tournament && tournament.registrationOpen === false) {
+                    setRegistrationOpen(false);
+                }
+            } catch (error) {
+                console.error("Error fetching tournament status:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchTournamentStatus();
+    }, [id]);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -93,7 +113,26 @@ const RegistrationForm = () => {
                     Tournament Registration
                 </h1>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
+                {loading ? (
+                    <div className="text-center py-10">
+                        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-indigo-500 mx-auto"></div>
+                        <p className="mt-4 text-gray-400">Checking tournament status...</p>
+                    </div>
+                ) : !registrationOpen ? (
+                    <div className="text-center py-10 space-y-6">
+                        <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-8">
+                            <h2 className="text-2xl font-bold text-red-500 mb-2">Registration Closed</h2>
+                            <p className="text-gray-300">We are no longer accepting registrations for this tournament.</p>
+                        </div>
+                        <button
+                            onClick={() => navigate("/")}
+                            className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition"
+                        >
+                            Back to Home
+                        </button>
+                    </div>
+                ) : (
+                    <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Full Name */}
                     <div className="relative">
                         <input
@@ -218,7 +257,8 @@ const RegistrationForm = () => {
                     >
                         Register Now
                     </button>
-                </form>
+                    </form>
+                )}
             </div>
         </div>
     );

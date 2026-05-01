@@ -93,9 +93,13 @@ const TournamentDetails = () => {
                         <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
                             <button
                                 onClick={() => navigate(`/register-tournament/${tournament._id}`)}
-                                className="w-full sm:px-8 py-3 sm:py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition duration-300 uppercase tracking-widest shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2 text-sm sm:text-base"
+                                disabled={tournament.registrationOpen === false}
+                                className={`w-full sm:px-8 py-3 sm:py-4 text-white font-bold rounded-xl transition duration-300 uppercase tracking-widest shadow-lg flex items-center justify-center gap-2 text-sm sm:text-base ${tournament.registrationOpen === false
+                                    ? "bg-gray-600 cursor-not-allowed shadow-none"
+                                    : "bg-indigo-600 hover:bg-indigo-700 shadow-indigo-500/20"
+                                    }`}
                             >
-                                Join Now
+                                {tournament.registrationOpen === false ? "Registration Closed" : "Join Now"}
                             </button>
                         </div>
                     </div>

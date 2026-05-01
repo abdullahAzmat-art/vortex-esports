@@ -34,6 +34,13 @@ export const addtheteam = async (req, res) => {
       });
     }
 
+    if (tournament.registrationOpen === false) {
+      return res.status(400).json({
+        success: false,
+        message: "Registration for this tournament is closed."
+      });
+    }
+
     const alreadyRegistered = await Registrations.findOne({
       email,
       tournamentId

@@ -95,6 +95,38 @@ const TournamentRegistrations = () => {
         }
     };
 
+    // Toggle registration status
+    const handleToggleRegistration = async (tournamentId, currentStatus) => {
+        const actualStatus = currentStatus !== false; // If undefined or true, it's open
+        const newStatus = !actualStatus;
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/putTournament/${tournamentId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ registrationOpen: newStatus }),
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                toast.success(`Registration ${newStatus ? "opened" : "closed"} successfully!`);
+                // Update local state
+                setTournaments(prevTournaments =>
+                    prevTournaments.map(t =>
+                        t._id === tournamentId ? { ...t, registrationOpen: newStatus } : t
+                    )
+                );
+            } else {
+                toast.error(data.message || "Failed to update registration status");
+            }
+        } catch (error) {
+            console.error("Error toggling registration:", error);
+            toast.error("Error updating registration status");
+        }
+    };
+
     useEffect(() => {
         fetchTournaments();
     }, []);
@@ -132,8 +164,17 @@ const TournamentRegistrations = () => {
                                 </div>
 
                                 <button
+                                    onClick={() => handleToggleRegistration(tournament._id, tournament.registrationOpen)}
+                                    className={`w-full mt-2 font-semibold py-2 px-4 rounded-lg transition ${tournament.registrationOpen !== false
+                                        ? "bg-red-600 hover:bg-red-700"
+                                        : "bg-green-600 hover:bg-green-700"
+                                        }`}
+                                >
+                                    {tournament.registrationOpen !== false ? "Close Registration" : "Open Registration"}
+                                </button>
+                                <button
                                     onClick={() => fetchRegistrations(tournament._id, tournament.title)}
-                                    className="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition"
+                                    className="w-full mt-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition"
                                 >
                                     View Registrations
                                 </button>
